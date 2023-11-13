@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %}
+    <strong>{{ post.name }}</strong> (<strong>{{ post.categoria }}</strong>)
+{% endblock title %}
+{% block content %}
+    <h2>{{ post.name }}</h2>
+    <section class="dados-de-post">
+        <img src="{{ post.image_url }}" alt="Foto do artigo {{ post.name }}">
+        <ul>
+            <li><u>Nome</u>: <strong>{{ post.name }}</strong></li>
+            <li><u>Categoria</u>: <strong>{{ post.categoria }}</strong></li>
+            <li><u>Data</u>: <strong>{{post.data}}</strong></li>
+            <li><u>Texto</u>: {{ post.texto }}</li>
+            {% if post.list_set.all %}<li><u>Incluso nas listas</u>: {{ post.list_set.all|join:", " }}</li>{% endif %}
+            <li>
+                <a href="{% url 'app:update' post.id %}">Editar</a>
+            </li>
+            <li>
+                <a href="{% url 'app:delete' post.id %}">Apagar</a>
+            </li>
+        </ul>
+    </section>
+    <hr>
+    <section>
+        <header>
+            <h3>Comentários</h3>
+        </header>
+        <ul>
+            {% if post.comentario_set.all %}
+                {% for comentario in post.comentario_set.all %}
+                    <figure>
+                        <blockquote>
+                            "{{ comentario.text }}"
+                        </blockquote>
+                        <figcaption>—{{ comentario.author }}, {{comentario.data}}</figcaption>
+                    </figure>
+                {% endfor %}
+            {% else %}
+                <p>Ainda não existe nenhum comentário para este artigo.</p>
+            {% endif %}
+        </ul>
+        <hr>
+        <a href="{% url 'app:comentario' post.pk %}">
+            <button>Crie seu Comentário</button>
+        </a>
+    </section>
+{% endblock content %}
