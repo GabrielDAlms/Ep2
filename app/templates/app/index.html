@@ -12,7 +12,7 @@
 <section class="lista-de-cards">
     {% for post in post_list %}
     <article class="card">
-        <a href="{% url 'detail' post.id %}"><img src="{{ post.image_url }}"
+        <a href="{% url 'app:detail' post.id %}"><img src="{{ post.image_url }}"
                 alt="Foto do Artigo {{ post.name}}"></a>
         <p>{{ post.name }} ({{ post.categoria }})</p>
     </article>
@@ -28,7 +28,7 @@
 <section class="lista-de-cards">
     {% for last_post in last_posts %}
     <article class="small-card">
-        <a href="{% url 'detail' last_posts.id %}"><img src="{{ last_post.image_url }}"
+        <a href="{% url 'app:detail' last_post.id %}"><img src="{{ last_post.image_url }}"
                 alt="Foto do artigo {{ last_post.name}}"></a>
     </article>
     {% endfor %}

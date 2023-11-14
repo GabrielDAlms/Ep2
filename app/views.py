@@ -260,7 +260,7 @@ class ListCreateView(LoginRequiredMixin, PermissionRequiredMixin,
                      generic.CreateView):
     model = List
     template_name = 'app/create_list.html'
-    fields = ['name', 'author', 'app']
+    fields = ['name', 'author', 'posts']
     success_url = reverse_lazy('app:lists')
     permission_required = 'app.add_list'
 
