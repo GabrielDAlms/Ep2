@@ -1,5 +1,5 @@
-from django.urls import path
-
+from django.urls import path, include
+from django.contrib.auth import views as auth_views
 from . import views
 
 app_name = "app"
@@ -13,4 +13,6 @@ urlpatterns = [
     path("<int:post_id>/comentario/", views.create_comentario, name="comentario"),
     path("lists/", views.ListListView.as_view(), name="lists"),
     path("lists/create", views.ListCreateView.as_view(), name="create-list"),
+    path('', views.home,name='home'),
+    path('', include('staticpages.urls')),
 ]

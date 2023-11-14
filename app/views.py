@@ -264,3 +264,5 @@ class ListCreateView(LoginRequiredMixin, PermissionRequiredMixin,
     success_url = reverse_lazy('app:lists')
     permission_required = 'app.add_list'
 
+def home(request):
+    return render(request,'home.html')
