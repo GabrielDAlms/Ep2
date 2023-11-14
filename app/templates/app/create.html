@@ -3,7 +3,7 @@
     Criar Artigo
 {% endblock title %}
 {% block content %}
-    <h2>Adicionar Artigo de Investimento</h2>
+    <h2>Adicionar post</h2>
     <form action="{% url 'app:create' %}" method="post">
         {% csrf_token %}
         {{ post_form.as_p }}

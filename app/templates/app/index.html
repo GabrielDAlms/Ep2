@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Todos os Artigos</h2>
+<h2>Todos os posts</h2>
 <section>
-    <p>Muitos resultados? <a href="{% url 'app:search' %}">Buscar Artigos</a></p>
+    <p>Muitos resultados? <a href="{% url 'app:search' %}">Buscar post</a></p>
     {% if perms.app.add_post %}
-        <p>Não encontrou o artigo? <a href="{% url 'app:create' %}">Adicionar Novo Artigo</a></p>
+        <p>Não encontrou o podst que desejava? <a href="{% url 'app:create' %}">Adicionar nova postagem</a></p>
     {% endif%}
 </section>
 {% if post_list %}
@@ -19,7 +19,7 @@
     {% endfor %}
 </section>
 {% else %}
-<p>Não foi encontrado nenhum artigo.</p>
+<p>Não foi encontrado nenhum post.</p>
 {% endif %}
 
 {% if last_posts %}

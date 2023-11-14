@@ -3,7 +3,7 @@
     Criar Artigo de Investimento
 {% endblock title %}
 {% block content %}
-    <h2>Criar Lista de Artigos Favoritos</h2>
+    <h2>Criar lista de posts favoritos</h2>
     <form action="{% url 'app:create-list' %}" method="post">
         {% csrf_token %}
         {{ form.as_p }}
