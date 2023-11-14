@@ -14,5 +14,4 @@ urlpatterns = [
     path("lists/", views.ListListView.as_view(), name="lists"),
     path("lists/create", views.ListCreateView.as_view(), name="create-list"),
     path('', views.home,name='home'),
-    path('', include('staticpages.urls')),
 ]

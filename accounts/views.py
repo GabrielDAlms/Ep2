@@ -13,7 +13,7 @@ def signup(request):
             user.groups.add(user_group)
             user.save()
 
-            return HttpResponseRedirect(reverse("login"))
+            return HttpResponseRedirect(reverse('login'))
     else:
         form = UserCreationForm()
 

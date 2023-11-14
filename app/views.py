@@ -209,7 +209,7 @@ def PostUpdate(request, post_id):
             post.image_url = form.cleaned_data["image_url"]
             post.texto = form.cleaned_data["texto"]
             post.save()
-            return HttpResponseRedirect(reverse("app:detail", args=(post.id,)))
+            return HttpResponseRedirect(reverse('app:detail', args=(post.id,)))
     else:
         form = PostForm(
             initial={
@@ -229,7 +229,7 @@ def PostDelete(request, post_id):
 
     if request.method == "POST":
         post.delete()
-        return HttpResponseRedirect(reverse("app:index"))
+        return HttpResponseRedirect(reverse('app:index'))
 
     context = {"post": post}
     return render(request, "app/delete.html", context)
@@ -244,7 +244,7 @@ def create_comentario(request, post_id):
             comentario_text = form.cleaned_data["text"]
             comentario = Comentario(author=comentario_author, text=comentario_text, post=post)
             comentario.save()
-            return HttpResponseRedirect(reverse("app:detail", args=(post_id,)))
+            return HttpResponseRedirect(reverse('app:detail', args=(post_id,)))
     else:
         form = ComentarioForm()
     context = {"form": form, "post": post}
