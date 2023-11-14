@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h2>Comentar Artigo {{ post.name }} ({{ post.categoria }})</h2>
+    <h2>Comentar post {{ post.name }} ({{ post.categoria }})</h2>
     <form action="{% url 'app:comentario' post.id %}" method="post">
         {% csrf_token %}
         {{ form.as_p }}

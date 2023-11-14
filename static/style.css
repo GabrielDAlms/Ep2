@@ -1,11 +1,11 @@
 :root {
-  --primary-color: #000000;
-  --secondary-color: #118bee;
-  --tertiary-color: #f44d27;
-  --secondary-color-light: #30b2ff;
+  --primary-color: #ec0d0d;
+  --secondary-color: #eec211;
+  --tertiary-color: #060505;
+  --secondary-color-light: #ffd930;
   --tertiary-color-light: #ff6d28;
   --bg-color: #fff;
-  --secondary-bg-color: #e9e9e9;
+  --secondary-bg-color: #ffa7a7;
   --color-shadow: #f4f4f4;
   font-family: Inter, sans-serif;
   font-size: 16px;
