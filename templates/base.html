@@ -16,7 +16,7 @@
 
 <body>
     <header id="cabecalho-principal">
-        <a href="{% url 'index' %}"> <img src="{% static 'logo.svg' %}"> </a>
+        <a href="{% url 'app:index' %}"> <img src="{% static 'logo.svg' %}"> </a>
         <nav id="navegacao-principal">
             <ul>
                 {% if user.is_authenticated %}
@@ -27,7 +27,7 @@
                 {% endif %}
                 <li><a href="{% url 'app:index' %}">Postagens</a></li>
                 <li><a href="{% url 'app:lists' %}">Favoritos da Comunidade</a></li>
-                <li><a href="{% url 'about' %}">Sobre</a></li>
+                <li><a href="{% url 'app:about' %}">Sobre</a></li>
             </ul>
         </nav>
 
