@@ -3,10 +3,22 @@
     Criar postagem
 {% endblock title %}
 {% block content %}
-    <h2>Adicionar post</h2>
-    <form action="{% url 'app:create' %}" method="post">
-        {% csrf_token %}
-        {{ post_form.as_p }}
-        <button type="submit">Criar</button>
-    </form>
+<div class="container">
+    <div class="row">
+      <!-- Blog Entries Column -->
+      <div class="col-md-8 mt-3 left">
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2>Adicionar post</h2>
+            <form action="{% url 'app:create' %}" method="post">
+                {% csrf_token %}
+                {{ post_form.as_p }}
+                <button type="submit">Criar</button>
+            </form> 
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    
 {% endblock content %}

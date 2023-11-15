@@ -13,7 +13,7 @@ class PostForm(ModelForm):
         ]
         labels = {
             "name": "Título",
-            "categoria": "Categoria de Investimento",
+            "categoria": "Categoria do post",
             "image_url": "URL da Imagem",
             "texto": "Texto"
         }

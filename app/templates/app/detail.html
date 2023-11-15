@@ -3,23 +3,35 @@
     <strong>{{ post.name }}</strong> (<strong>{{ post.categoria }}</strong>)
 {% endblock title %}
 {% block content %}
-    <h2>{{ post.name }}</h2>
-    <section class="dados-de-post">
-        <img src="{{ post.image_url }}" alt="Foto do artigo {{ post.name }}" width="300">
-        <ul>
-            <li><u>Nome</u>: <strong>{{ post.name }}</strong></li>
-            <li><u>Categoria</u>: <strong>{{ post.categoria }}</strong></li>
-            <li><u>Data</u>: <strong>{{post.data}}</strong></li>
-            <li><u>Texto</u>: {{ post.texto }}</li>
-            {% if post.list_set.all %}<li><u>Incluso nas listas</u>: {{ post.list_set.all|join:", " }}</li>{% endif %}
-            <li style="display: inline-block;"></li>>
-                <a href="{% url 'app:update' post.id %}" class="btn btn-primary">Editar</a>
-            </li>
-            <li style="display: inline-block;"></li>>
-                <a href="{% url 'app:delete' post.id %}" class="btn btn-primary">Apagar</a>
-            </li>
-        </ul>
-    </section>
+<div class="container">
+    <div class="row">
+      <!-- Blog Entries Column -->
+      <div class="col-md-8 mt-3 left">
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2>{{ post.name }}</h2>
+                <section class="dados-de-post">
+                    <img src="{{ post.image_url }}" alt="Foto do artigo {{ post.name }}" width="300">
+                    <ul>
+                        <li style="display: block;"><u>Nome</u>: <strong>{{ post.name }}</strong></li>
+                        <li style="display: block;"><u>Categoria</u>: <strong>{{ post.categoria }}</strong></li>
+                        <li style="display: block;"><u>Data</u>: <strong>{{post.data}}</strong></li>
+                        <li style="display: block;"><u>Texto</u>: {{ post.texto }}</li>
+                        {% if post.list_set.all %}<li><u>Incluso nas listas</u>: {{ post.list_set.all|join:", " }}</li>{% endif %}
+                        <li style="display: inline-block;"></li>>
+                            <a href="{% url 'app:update' post.id %}" class="btn btn-primary">Editar</a>
+                        </li>
+                        <li style="display: inline-block;"></li>>
+                            <a href="{% url 'app:delete' post.id %}" class="btn btn-primary">Apagar</a>
+                        </li>
+                    </ul>
+                </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    
     <hr>
     <section>
         <header>
