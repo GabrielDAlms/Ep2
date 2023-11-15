@@ -58,91 +58,91 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 ####################################################
 
 # # Apenas views funcionais com uma django form
-from django.shortcuts import render, get_object_or_404, redirect
-from .models import Post
-from .forms import PostForm
+# from django.shortcuts import render, get_object_or_404, redirect
+# from .models import Post
+# from .forms import PostForm
 
-# Listar todos os posts
-def post_list(request):
-    posts = Post.objects.all()
-    return render(request, 'blog/post_list.html', {'posts': posts})
+# # Listar todos os posts
+# def post_list(request):
+#     posts = Post.objects.all()
+#     return render(request, 'blog/post_list.html', {'posts': posts})
 
-# Detalhes de um post
-def post_detail(request, post_id):
-    post = get_object_or_404(Post, pk=post_id)
-    return render(request, 'blog/post_detail.html', {'post': post})
+# # Detalhes de um post
+# def post_detail(request, post_id):
+#     post = get_object_or_404(Post, pk=post_id)
+#     return render(request, 'blog/post_detail.html', {'post': post})
 
-# Criar um novo post
-def post_create(request):
-    if request.method == 'POST':
-        form = PostForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('post_list')
-    else:
-        form = PostForm()
-    return render(request, 'blog/post_form.html', {'form': form})
+# # Criar um novo post
+# def post_create(request):
+#     if request.method == 'POST':
+#         form = PostForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('post_list')
+#     else:
+#         form = PostForm()
+#     return render(request, 'blog/post_form.html', {'form': form})
 
-# Atualizar um post
-def post_update(request, post_id):
-    post = get_object_or_404(Post, pk=post_id)
-    if request.method == 'POST':
-        form = PostForm(request.POST, instance=post)
-        if form.is_valid():
-            form.save()
-            return redirect('post_list')
-    else:
-        form = PostForm(instance=post)
-    return render(request, 'blog/post_form.html', {'form': form})
+# # Atualizar um post
+# def post_update(request, post_id):
+#     post = get_object_or_404(Post, pk=post_id)
+#     if request.method == 'POST':
+#         form = PostForm(request.POST, instance=post)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('post_list')
+#     else:
+#         form = PostForm(instance=post)
+#     return render(request, 'blog/post_form.html', {'form': form})
 
-# Excluir um post
-def post_delete(request, post_id):
-    post = get_object_or_404(Post, pk=post_id)
-    if request.method == 'POST':
-        post.delete()
-        return redirect('post_list')
-    return render(request, 'blog/post_confirm_delete.html', {'post': post})
+# # Excluir um post
+# def post_delete(request, post_id):
+#     post = get_object_or_404(Post, pk=post_id)
+#     if request.method == 'POST':
+#         post.delete()
+#         return redirect('post_list')
+#     return render(request, 'blog/post_confirm_delete.html', {'post': post})
 
 ############################################################
 
 # Com classes comuns
-# from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-# from django.urls import reverse_lazy
-# from .models import Post
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
+from .models import Post
 
-# # Listar todos os posts
-# class PostListView(ListView):
-#     model = Post
-#     template_name = 'blog/post_list.html'
-#     context_object_name = 'posts'
+# Listar todos os posts
+class PostListView(ListView):
+    model = Post
+    template_name = 'blog/post_list.html'
+    context_object_name = 'posts'
 
-# # Detalhes de um post
-# class PostDetailView(DetailView):
-#     model = Post
-#     template_name = 'blog/post_detail.html'
-#     context_object_name = 'post'
+# Detalhes de um post
+class PostDetailView(DetailView):
+    model = Post
+    template_name = 'blog/post_detail.html'
+    context_object_name = 'post'
 
-# # Criar um novo post
-# class PostCreateView(CreateView):
-#     model = Post
-#     form_class = PostForm
-#     template_name = 'blog/post_form.html'
-#     success_url = reverse_lazy('post_list')
+# Criar um novo post
+class PostCreateView(CreateView):
+    model = Post
+    form_class = PostForm
+    template_name = 'blog/post_form.html'
+    success_url = reverse_lazy('post_list')
 
-# # Atualizar um post
-# class PostUpdateView(UpdateView):
-#     model = Post
-#     form_class = PostForm
-#     template_name = 'blog/post_form.html'
-#     context_object_name = 'post'
-#     success_url = reverse_lazy('post_list')
+# Atualizar um post
+class PostUpdateView(UpdateView):
+    model = Post
+    form_class = PostForm
+    template_name = 'blog/post_form.html'
+    context_object_name = 'post'
+    success_url = reverse_lazy('post_list')
 
-# # Excluir um post
-# class PostDeleteView(DeleteView):
-#     model = Post
-#     template_name = 'blog/post_confirm_delete.html'
-#     context_object_name = 'post'
-#     success_url = reverse_lazy('post_list')
+# Excluir um post
+class PostDeleteView(DeleteView):
+    model = Post
+    template_name = 'blog/post_confirm_delete.html'
+    context_object_name = 'post'
+    success_url = reverse_lazy('post_list')
 
 ############################################################
 
