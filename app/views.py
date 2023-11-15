@@ -106,169 +106,169 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 ############################################################
 
 # Com classes comuns
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from django.urls import reverse_lazy
-from .models import Post
+# from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+# from django.urls import reverse_lazy
+# from .models import Post
 
-# Listar todos os posts
-class PostListView(ListView):
-    model = Post
-    template_name = 'blog/post_list.html'
-    context_object_name = 'posts'
+# # Listar todos os posts
+# class PostListView(ListView):
+#     model = Post
+#     template_name = 'blog/post_list.html'
+#     context_object_name = 'posts'
 
-# Detalhes de um post
-class PostDetailView(DetailView):
-    model = Post
-    template_name = 'blog/post_detail.html'
-    context_object_name = 'post'
+# # Detalhes de um post
+# class PostDetailView(DetailView):
+#     model = Post
+#     template_name = 'blog/post_detail.html'
+#     context_object_name = 'post'
 
-# Criar um novo post
-class PostCreateView(CreateView):
-    model = Post
-    form_class = PostForm
-    template_name = 'blog/post_form.html'
-    success_url = reverse_lazy('post_list')
+# # Criar um novo post
+# class PostCreateView(CreateView):
+#     model = Post
+#     form_class = PostForm
+#     template_name = 'blog/post_form.html'
+#     success_url = reverse_lazy('post_list')
 
-# Atualizar um post
-class PostUpdateView(UpdateView):
-    model = Post
-    form_class = PostForm
-    template_name = 'blog/post_form.html'
-    context_object_name = 'post'
-    success_url = reverse_lazy('post_list')
+# # Atualizar um post
+# class PostUpdateView(UpdateView):
+#     model = Post
+#     form_class = PostForm
+#     template_name = 'blog/post_form.html'
+#     context_object_name = 'post'
+#     success_url = reverse_lazy('post_list')
 
-# Excluir um post
-class PostDeleteView(DeleteView):
-    model = Post
-    template_name = 'blog/post_confirm_delete.html'
-    context_object_name = 'post'
-    success_url = reverse_lazy('post_list')
+# # Excluir um post
+# class PostDeleteView(DeleteView):
+#     model = Post
+#     template_name = 'blog/post_confirm_delete.html'
+#     context_object_name = 'post'
+#     success_url = reverse_lazy('post_list')
 
 ############################################################
 
-# # Usada
-# def PostDetail(request, post_id):
-#     post = get_object_or_404(Post, pk=post_id)
-#     if 'last_viewed' not in request.session:
-#         request.session['last_viewed'] = []
-#     request.session['last_viewed'] = [post_id
-#                                       ] + request.session['last_viewed']
-#     if len(request.session['last_viewed']) > 5:
-#         request.session['last_viewed'] = request.session['last_viewed'][:-1]
-#     context = {'post': post}
-#     return render(request, 'app/detail.html', context)
+# Usada
+def PostDetail(request, post_id):
+    post = get_object_or_404(Post, pk=post_id)
+    if 'last_viewed' not in request.session:
+        request.session['last_viewed'] = []
+    request.session['last_viewed'] = [post_id
+                                      ] + request.session['last_viewed']
+    if len(request.session['last_viewed']) > 5:
+        request.session['last_viewed'] = request.session['last_viewed'][:-1]
+    context = {'post': post}
+    return render(request, 'app/detail.html', context)
 
-# class PostListView(generic.ListView):
-#     model = Post
-#     template_name = 'app/index.html'
+class PostListView(generic.ListView):
+    model = Post
+    template_name = 'app/index.html'
 
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         if 'last_viewed' in self.request.session:
-#             context['last_posts'] = []
-#             for post_id in self.request.session['last_viewed']:
-#                 context['last_posts'].append(
-#                     get_object_or_404(Post, pk=post_id))
-#         return context
-
-
-# def PostSearch(request):
-#     context = {}
-#     if request.GET.get('query', False):
-#         search_term = request.GET["query"].lower()
-#         post_list = Post.objects.filter(name__icontains=search_term)
-#         context = {"post_list": post_list}
-#     return render(request, "app/search.html", context)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if 'last_viewed' in self.request.session:
+            context['last_posts'] = []
+            for post_id in self.request.session['last_viewed']:
+                context['last_posts'].append(
+                    get_object_or_404(Post, pk=post_id))
+        return context
 
 
-# @login_required
-# @permission_required('app.add_post')
-# def PostCreate(request):
-#     if request.method == 'POST':
-#         post_form = PostForm(request.POST)
-#         if post_form.is_valid():
-#             post = Post(**post_form.cleaned_data)
-#             post.save()
-#             return HttpResponseRedirect(
-#                 reverse('app:detail', args=(post.pk, )))
-
-#     else:
-#         post_form = PostForm()
-#     context = {"post_form": post_form}
-#     return render(request, "app/create.html", context)
-
-# @login_required
-# @permission_required('app.update_post')
-# def PostUpdate(request, post_id):
-#     post = get_object_or_404(Post, pk=post_id)
-#     if request.method == "POST":
-#         form = PostForm(request.POST)
-#         if form.is_valid():
-#             post.name = form.cleaned_data["name"]
-#             post.categoria = form.cleaned_data["categoria"]
-#             post.image_url = form.cleaned_data["image_url"]
-#             post.texto = form.cleaned_data["texto"]
-#             post.save()
-#             return HttpResponseRedirect(reverse('app:detail', args=(post.id,)))
-#     else:
-#         form = PostForm(
-#             initial={
-#                 "name": post.name,
-#                 "categoria": post.categoria,
-#                 "image_url": post.image_url,
-#                 "texto": post.texto,
-#             }
-#         )
-#     context = {"post": post, "form": form}
-#     return render(request, "app/update.html", context)
-
-# @login_required
-# @permission_required('app.delete_post')
-# def PostDelete(request, post_id):
-#     post = get_object_or_404(Post, pk=post_id)
-
-#     if request.method == "POST":
-#         post.delete()
-#         return HttpResponseRedirect(reverse('app:index'))
-
-#     context = {"post": post}
-#     return render(request, "app/delete.html", context)
-
-# @login_required
-# def create_comentario(request, post_id):
-#     post = get_object_or_404(Post, pk=post_id)
-#     if request.method == "POST":
-#         form = ComentarioForm(request.POST)
-#         if form.is_valid():
-#             comentario_author = request.user
-#             comentario_text = form.cleaned_data["text"]
-#             comentario = Comentario(author=comentario_author, text=comentario_text, post=post)
-#             comentario.save()
-#             return HttpResponseRedirect(reverse('app:detail', args=(post_id,)))
-#     else:
-#         form = ComentarioForm()
-#     context = {"form": form, "post": post}
-#     return render(request, "app/comentario.html", context)
+def PostSearch(request):
+    context = {}
+    if request.GET.get('query', False):
+        search_term = request.GET["query"].lower()
+        post_list = Post.objects.filter(name__icontains=search_term)
+        context = {"post_list": post_list}
+    return render(request, "app/search.html", context)
 
 
-# class ListListView(generic.ListView):
-#     model = List
-#     template_name = "app/lists.html"
+@login_required
+@permission_required('app.add_post')
+def PostCreate(request):
+    if request.method == 'POST':
+        post_form = PostForm(request.POST)
+        if post_form.is_valid():
+            post = Post(**post_form.cleaned_data)
+            post.save()
+            return HttpResponseRedirect(
+                reverse('app:detail', args=(post.pk, )))
+
+    else:
+        post_form = PostForm()
+    context = {"post_form": post_form}
+    return render(request, "app/create.html", context)
+
+@login_required
+@permission_required('app.update_post')
+def PostUpdate(request, post_id):
+    post = get_object_or_404(Post, pk=post_id)
+    if request.method == "POST":
+        form = PostForm(request.POST)
+        if form.is_valid():
+            post.name = form.cleaned_data["name"]
+            post.categoria = form.cleaned_data["categoria"]
+            post.image_url = form.cleaned_data["image_url"]
+            post.texto = form.cleaned_data["texto"]
+            post.save()
+            return HttpResponseRedirect(reverse('app:detail', args=(post.id,)))
+    else:
+        form = PostForm(
+            initial={
+                "name": post.name,
+                "categoria": post.categoria,
+                "image_url": post.image_url,
+                "texto": post.texto,
+            }
+        )
+    context = {"post": post, "form": form}
+    return render(request, "app/update.html", context)
+
+@login_required
+@permission_required('app.delete_post')
+def PostDelete(request, post_id):
+    post = get_object_or_404(Post, pk=post_id)
+
+    if request.method == "POST":
+        post.delete()
+        return HttpResponseRedirect(reverse('app:index'))
+
+    context = {"post": post}
+    return render(request, "app/delete.html", context)
+
+@login_required
+def create_comentario(request, post_id):
+    post = get_object_or_404(Post, pk=post_id)
+    if request.method == "POST":
+        form = ComentarioForm(request.POST)
+        if form.is_valid():
+            comentario_author = request.user
+            comentario_text = form.cleaned_data["text"]
+            comentario = Comentario(author=comentario_author, text=comentario_text, post=post)
+            comentario.save()
+            return HttpResponseRedirect(reverse('app:detail', args=(post_id,)))
+    else:
+        form = ComentarioForm()
+    context = {"form": form, "post": post}
+    return render(request, "app/comentario.html", context)
 
 
-# class ListCreateView(LoginRequiredMixin, PermissionRequiredMixin,
-#                      generic.CreateView):
-#     model = List
-#     template_name = 'app/create_list.html'
-#     fields = ['name', 'author', 'posts']
-#     success_url = reverse_lazy('app:lists')
-#     permission_required = 'app.add_list'
-
-# class CategoryListView(generic.ListView):
-#     model = Category
-#     template_name = 'app/categories.html'
+class ListListView(generic.ListView):
+    model = List
+    template_name = "app/lists.html"
 
 
-# class CategoryDetailView(generic.DetailView):
-#     model = Category
-#     template_name = 'app/category.html'
+class ListCreateView(LoginRequiredMixin, PermissionRequiredMixin,
+                     generic.CreateView):
+    model = List
+    template_name = 'app/create_list.html'
+    fields = ['name', 'author', 'posts']
+    success_url = reverse_lazy('app:lists')
+    permission_required = 'app.add_list'
+
+class CategoryListView(generic.ListView):
+    model = Category
+    template_name = 'app/categories.html'
+
+
+class CategoryDetailView(generic.DetailView):
+    model = Category
+    template_name = 'app/category.html'
