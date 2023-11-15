@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
-from .models import Postagem, Comentario, List, Category
+from .models import Post, Comentario, List, Category
 from .forms import PostForm, ComentarioForm
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
@@ -148,7 +148,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 
 # Usada
 def PostDetail(request, post_id):
-    post = get_object_or_404(Postagem, pk=post_id)
+    post = get_object_or_404(Post, pk=post_id)
     if 'last_viewed' not in request.session:
         request.session['last_viewed'] = []
     request.session['last_viewed'] = [post_id
@@ -159,7 +159,7 @@ def PostDetail(request, post_id):
     return render(request, 'app/detail.html', context)
 
 class PostListView(generic.ListView):
-    model = Postagem
+    model = Post
     template_name = 'app/index.html'
 
     def get_context_data(self, **kwargs):
@@ -168,7 +168,7 @@ class PostListView(generic.ListView):
             context['last_posts'] = []
             for post_id in self.request.session['last_viewed']:
                 context['last_posts'].append(
-                    get_object_or_404(Postagem, pk=post_id))
+                    get_object_or_404(Post, pk=post_id))
         return context
 
 
@@ -176,7 +176,7 @@ def PostSearch(request):
     context = {}
     if request.GET.get('query', False):
         search_term = request.GET["query"].lower()
-        post_list = Postagem.objects.filter(name__icontains=search_term)
+        post_list = Post.objects.filter(name__icontains=search_term)
         context = {"post_list": post_list}
     return render(request, "app/search.html", context)
 
@@ -187,7 +187,7 @@ def PostCreate(request):
     if request.method == 'POST':
         post_form = PostForm(request.POST)
         if post_form.is_valid():
-            post = Postagem(**post_form.cleaned_data)
+            post = Post(**post_form.cleaned_data)
             post.save()
             return HttpResponseRedirect(
                 reverse('app:detail', args=(post.pk, )))
@@ -200,7 +200,7 @@ def PostCreate(request):
 @login_required
 @permission_required('app.update_post')
 def PostUpdate(request, post_id):
-    post = get_object_or_404(Postagem, pk=post_id)
+    post = get_object_or_404(Post, pk=post_id)
     if request.method == "POST":
         form = PostForm(request.POST)
         if form.is_valid():
@@ -225,7 +225,7 @@ def PostUpdate(request, post_id):
 @login_required
 @permission_required('app.delete_post')
 def PostDelete(request, post_id):
-    post = get_object_or_404(Postagem, pk=post_id)
+    post = get_object_or_404(Post, pk=post_id)
 
     if request.method == "POST":
         post.delete()
@@ -236,7 +236,7 @@ def PostDelete(request, post_id):
 
 @login_required
 def create_comentario(request, post_id):
-    post = get_object_or_404(Postagem, pk=post_id)
+    post = get_object_or_404(Post, pk=post_id)
     if request.method == "POST":
         form = ComentarioForm(request.POST)
         if form.is_valid():

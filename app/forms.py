@@ -1,10 +1,10 @@
 from django.forms import ModelForm
-from .models import Postagem, Comentario
+from .models import Post, Comentario
 
 
 class PostForm(ModelForm):
     class Meta:
-        model = Postagem
+        model = Post
         fields = [
             "name",
             "categoria",
