@@ -5,7 +5,7 @@ Categoria {{category.name}}
 {% block content %}
 
 
-<h2>Todas as músicas da Categoria {{category.name}} </h2>
+<h2>Todos os posts da Categoria {{category.name}} </h2>
 <p>{{category.description}}</p>
 {% if category %}
 <section >
@@ -16,7 +16,7 @@ Categoria {{category.name}}
     {% endfor %}
 </section>
 {% else %}
-<p>Não foi encontrado nenhuma música relacionada à categoria {{category.name}}.</p>
+<p>Não foi encontrado nenhum post relacionada à categoria {{category.name}}.</p>
 {% endif %}
 
 {% endblock content %}

@@ -12,11 +12,11 @@
             <li><u>Data</u>: <strong>{{post.data}}</strong></li>
             <li><u>Texto</u>: {{ post.texto }}</li>
             {% if post.list_set.all %}<li><u>Incluso nas listas</u>: {{ post.list_set.all|join:", " }}</li>{% endif %}
-            <li>
-                <a href="{% url 'app:update' post.id %}">Editar</a>
+            <li style="display: inline-block;"></li>>
+                <a href="{% url 'app:update' post.id %}" class="btn btn-primary">Editar</a>
             </li>
-            <li>
-                <a href="{% url 'app:delete' post.id %}">Apagar</a>
+            <li style="display: inline-block;"></li>>
+                <a href="{% url 'app:delete' post.id %}" class="btn btn-primary">Apagar</a>
             </li>
         </ul>
     </section>
