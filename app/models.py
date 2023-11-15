@@ -32,3 +32,11 @@ class List(models.Model):
 
     def __str__(self):
         return f"{self.name} by {self.author}"
+
+class Category(models.Model):
+    name = models.CharField(max_length=255)
+    description = models.CharField(max_length=255)
+    posts = models.ManyToManyField(Postagem, blank = True)
+
+    def __str__(self):
+        return f'{self.name}'

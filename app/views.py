@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
-from .models import Postagem, Comentario, List
+from .models import Postagem, Comentario, List, Category
 from .forms import PostForm, ComentarioForm
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
@@ -264,5 +264,11 @@ class ListCreateView(LoginRequiredMixin, PermissionRequiredMixin,
     success_url = reverse_lazy('app:lists')
     permission_required = 'app.add_list'
 
-def home(request):
-    return render(request,'home.html')
+class CategoryListView(generic.ListView):
+    model = Category
+    template_name = 'app/categories.html'
+
+
+class CategoryDetailView(generic.DetailView):
+    model = Category
+    template_name = 'app/category.html'

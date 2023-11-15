@@ -13,4 +13,6 @@ urlpatterns = [
     path("<int:post_id>/comentario/", views.create_comentario, name="comentario"),
     path("lists/", views.ListListView.as_view(), name="lists"),
     path("lists/create", views.ListCreateView.as_view(), name="create-list"),
+    path('category/<int:pk>', views.CategoryDetailView.as_view(), name='category'),
+    path('categories/', views.CategoryListView.as_view(), name='categories'),
 ]

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}
+Categorias 
+{% endblock title %}
+{% block content %}
+
+
+<h2>Todas as Categorias</h2>
+{% if category_list %}
+<section >
+    {% for category in category_list %}
+    <article >
+        <a href="{% url 'app:category' category.id %}" > <p> {{ category.name}}</p></a>
+    </article>
+    {% endfor %}
+</section>
+{% else %}
+<p>Não foi encontrado nenhuma categoria.</p>
+{% endif %}
+
+{% endblock content %}

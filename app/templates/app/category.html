@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}
+Categoria {{category.name}}
+{% endblock title %}
+{% block content %}
+
+
+<h2>Todas as músicas da Categoria {{category.name}} </h2>
+<p>{{category.description}}</p>
+{% if category %}
+<section >
+    {% for post in category.posts.all %}
+    <article >
+        <a href="{% url 'app:detail' post.id %}" > <p> {{ post.name}}</p></a>
+    </article>
+    {% endfor %}
+</section>
+{% else %}
+<p>Não foi encontrado nenhuma música relacionada à categoria {{category.name}}.</p>
+{% endif %}
+
+{% endblock content %}

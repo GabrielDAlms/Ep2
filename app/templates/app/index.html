@@ -15,57 +15,11 @@
     </div>
   </div>
 </header>
-<div class="container">
-  <div class="row">
-    <!-- Blog Entries Column -->
-    <div class="col-md-8 mt-3 left">
-      {% for post in post_list %}
-      <div class="card mb-4">
-        <div class="card-body">
-          <h2 class="card-title">{{ post.title }}</h2>
-          <p class="card-text text-muted h6">{{ post.author }} | {{ post.created_on}} </p>
-          <p class="card-text">{{post.content|slice:":200"}}</p>
-          <a href="{% url 'post_detail' post.slug  %}" class="btn btn-primary">Read More &rarr;</a>
-        </div>
-      </div>
-      {% endfor %}
-    </div>
-<h2>Todos os posts</h2>
-<section>
-    <p>Muitos resultados? <a href="{% url 'app:search' %}">Buscar post</a></p>
-    {% if perms.app.add_post %}
-        <p>Não encontrou o podst que desejava? <a href="{% url 'app:create' %}">Adicionar nova postagem</a></p>
-    {% endif%}
-</section>
-{% if post_list %}
-<section class="lista-de-cards">
-    {% for post in post_list %}
-    <article class="card">
-        <a href="{% url 'app:detail' post.id %}"><img src="{{ post.image_url }}"
-                alt="Foto do Artigo {{ post.name}}"></a>
-        <p>{{ post.name }} ({{ post.categoria }})</p>
-    </article>
-    {% endfor %}
-</section>
-{% else %}
-<p>Não foi encontrado nenhum post.</p>
-{% endif %}
-
-{% if last_posts %}
-<hr>
-<h2>Últimos vistos</h2>
-<section class="lista-de-cards">
-    {% for last_post in last_posts %}
-    <article class="small-card">
-        <a href="{% url 'app:detail' last_post.id %}"><img src="{{ last_post.image_url }}"
-                alt="Foto do artigo {{ last_post.name}}"></a>
-    </article>
-    {% endfor %}
-</section>
-{% endif %}
+<body>
+  <h>Este blogo está aqui para te trazer todas as informações que você precisa para seu DD!</h>
+</body>
     {% block sidebar %} 
     {% include 'app/sidebar.html' %} 
     {% endblock sidebar %}
-  </div>
 </div>
 {%endblock%}
