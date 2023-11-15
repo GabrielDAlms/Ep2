@@ -27,7 +27,7 @@
         </header>
         <ul>
             {% if post.comentario_set.all %}
-                {% for comentario in post.comentario_set.all %}
+                {% for comentario in post.comentario_set.all|dictsortreversed:"id" %}
                     <figure>
                         <blockquote>
                             "{{ comentario.text }}"
@@ -36,12 +36,12 @@
                     </figure>
                 {% endfor %}
             {% else %}
-                <p>Ainda não existe nenhum comentário para este post.</p>
+                <p>Ainda não existe nenhum comentário para este Post.</p>
             {% endif %}
         </ul>
         <hr>
         <a href="{% url 'app:comentario' post.pk %}">
             <button>Crie seu Comentário</button>
         </a>
-    </section>
+</section>
 {% endblock content %}

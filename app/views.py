@@ -248,7 +248,7 @@ def create_comentario(request, post_id):
     else:
         form = ComentarioForm()
     context = {"form": form, "post": post}
-    return render(request, "post/comentario.html", context)
+    return render(request, "app/comentario.html", context)
 
 
 class ListListView(generic.ListView):
