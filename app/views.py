@@ -185,6 +185,7 @@ def PostSearch(request):
 @permission_required('app.add_post')
 def PostCreate(request):
     if request.method == 'POST':
+        post = Post.objects.order_by('-data')
         post_form = PostForm(request.POST)
         if post_form.is_valid():
             post = Post(**post_form.cleaned_data)
@@ -193,6 +194,7 @@ def PostCreate(request):
                 reverse('app:detail', args=(post.pk, )))
 
     else:
+        post = Post.objects.order_by('-data')
         post_form = PostForm()
     context = {"post_form": post_form}
     return render(request, "app/create.html", context)

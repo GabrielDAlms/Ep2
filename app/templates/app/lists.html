@@ -15,7 +15,8 @@ Listas
             <h3>{{list.name}} (de {{ list.author }}) </h3>
         </header>
         <div class="lista-de-cards">
-            {% for post in list.app.all %}
+            {% for post in list.app.all%}
+            {% for post in list.app.all|dictsortreversed:"id" %}
             <div class="card">
                 <a href="{% url 'app:detail' post.id %}"><img src="{{ post.image_url }}"
                         alt="Foto do Artigo {{ post.name}}"></a>
